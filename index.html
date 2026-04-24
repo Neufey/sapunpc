@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERMAK · pc — Сборка компьютеров на заказ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/configurator.css">
+<link rel="stylesheet" href="css/modal.css">
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-inner">
+        <span><span class="blink">●</span> Сборка от 24 часов</span>
+            <span>Доставка в обрешётке · Гарантия 1 год</span>
+        <span>+7 (995) 100-50-50</span>
+    </div>
+</div>
+
+<header>
+    <div class="header-inner">
+        <a class="logo" onclick="nav('home')">ERMAK<span class="logo-dot"></span>pc</a>
+        <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Меню">
+            <span></span><span></span><span></span>
+        </button>
+        <nav id="main-nav">
+            <ul>
+                <li><a onclick="nav('home')" data-page="home">Главная</a></li>
+                <li><a onclick="nav('catalog')" data-page="catalog">Каталог</a></li>
+                <li><a onclick="nav('config')" data-page="config">Конфигуратор</a></li>
+                <li><a onclick="nav('info')" data-page="info">О нас</a></li>
+                <li><a onclick="nav('contacts')" data-page="contacts">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Тёмная тема">
+                <span class="theme-icon-sun">☀</span>
+                <span class="theme-icon-moon">☽</span>
+            </button>
+            <a class="cart-btn" onclick="nav('cart')">
+                Корзина <span class="cart-count" id="cart-count">0</span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- ГЛАВНАЯ -->
+<div class="page" id="page-home">
+    <section class="hero">
+        <div>
+            <div class="hero-eyebrow">Est. 2024 · Новочеркасск</div>
+            <h1>Компьютеры,<br>собранные<br><em>с характером.</em></h1>
+            <p>Мы не продаём комплектующие со склада. Мы собираем машины под задачу — играть, рендерить, монтировать, писать код. С тестами, гарантией и без переплаты за бренд.</p>
+            <div class="hero-actions">
+                <button class="btn btn-primary btn-arrow" onclick="nav('catalog')">Смотреть каталог</button>
+                <button class="btn btn-ghost" onclick="nav('config')">Собрать свой ПК</button>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-badge badge-1">★ Топ продаж</div>
+            <div class="floating-badge badge-2">−15%</div>
+            <div class="hero-card">
+                <div id="hero-pc-svg" style="aspect-ratio:4/3;background:linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);border-radius:8px;margin-bottom:20px;overflow:hidden;"></div>
+                <div class="hero-card-tag">Игровая сборка</div>
+                <h3>Predator X1</h3>
+                <div class="hero-card-specs">
+                    <div>i5-13600K · RTX 4070</div>
+                    <div>32 GB DDR5 · 1 TB NVMe</div>
+                    <div>Гарантия 1 год</div>
+                </div>
+                <div class="hero-card-price">
+                    <strong>145 000 ₽</strong>
+                    <span>в наличии</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="marquee">
+        <div class="marquee-track">
+            <span>Сборка от 24 часов</span>
+            <span>Тестируем 48 часов перед доставкой</span>
+            <span>Гарантия 1 год</span>
+            <span>Доставка в обрешётке</span>
+            <span>Установка ПО в подарок</span>
+            <span>Сборка от 24 часов</span>
+            <span>Тестируем 48 часов перед доставкой</span>
+            <span>Гарантия 1 год</span>
+            <span>Доставка в обрешётке</span>
+            <span>Установка ПО в подарок</span>
+        </div>
+    </div>
+
+    <section class="section reveal">
+        <div class="section-head">
+            <div class="section-head-text">
+                <div class="section-eyebrow">Каталог · Топ моделей</div>
+                <h2>Готовые сборки <em>из наличия</em></h2>
+            </div>
+            <button class="btn btn-ghost btn-arrow" onclick="nav('catalog')">Все 14 сборок</button>
+        </div>
+        <div class="products-grid" id="home-products"></div>
+    </section>
+
+    <div class="features reveal">
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-num">/ 01</div>
+                <h3>Подбор под задачу</h3>
+                <p>Расскажите, что планируете делать — игры, рендер, стримы. Подберём оптимальную конфигурацию без переплат.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-num">/ 02</div>
+                <h3>Тест 48 часов</h3>
+                <p>Каждая сборка проходит стресс-тесты CPU/GPU/RAM/SSD под нагрузкой минимум двое суток.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-num">/ 03</div>
+                <h3>Гарантия 1 год</h3>
+                <p>На сборку и совместимость. Сломалось — починим или заменим. Без перекладывания на производителя.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-num">/ 04</div>
+                <h3>Доставка в обрешётке</h3>
+                <p>Отправляем в деревянной обрешётке поверх двойной коробки — чтобы дорога через ТК не превратилась в лотерею. От 100 000 ₽ — бесплатно.</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="faq-section reveal">
+        <div class="section-head">
+            <div class="section-head-text">
+                <div class="section-eyebrow">FAQ</div>
+                <h2>Частые <em>вопросы</em></h2>
+            </div>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">Можно ли привезти свои комплектующие?</button>
+                <div class="faq-a"><p>Да. Привозите — соберём, протестируем, дадим гарантию на совместимость и сборку. Стоимость сборки та же — 4 900 ₽.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">Какая гарантия?</button>
+                <div class="faq-a"><p>1 год на сборку и совместимость. Если что-то не работает вместе — чиним за свой счёт. На отдельные комплектующие — гарантия производителя (от 2 до 5 лет в зависимости от типа).</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">Можно забрать лично?</button>
+                <div class="faq-a"><p>Да, мастерская в Новочеркасске. Предварительно напишите в Telegram или позвоните — согласуем время. Оплата на месте картой или наличными.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">Сколько ждать сборку?</button>
+                <div class="faq-a"><p>Готовые сборки из каталога — 3–5 рабочих дней (сборка + тест). Кастомная конфигурация через конфигуратор — 4–6 дней. Если комплектующие в наличии — бывает и быстрее.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">Как оплачивать?</button>
+                <div class="faq-a"><p>Предоплата 50% при оформлении заказа, остальные 50% — перед отправкой или при получении. Перевод на карту, СБП или наличными при самовывозе.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">А если не понравится?</button>
+                <div class="faq-a"><p>В течение 14 дней с момента получения — возврат, если ПК не был модифицирован и сохранил товарный вид. Сборку доставим обратно за наш счёт.</p></div>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="page" id="page-catalog">
+    <section class="section">
+        <div class="section-head">
+            <div class="section-head-text">
+                <div class="section-eyebrow">Каталог</div>
+                <h2>Готовые сборки</h2>
+            </div>
+        </div>
+        <div class="filter-bar" id="filter-bar"></div>
+        <div class="products-grid" id="catalog-products"></div>
+    </section>
+</div>
+
+<!-- КАРТОЧКА ТОВАРА -->
+<div class="page" id="page-product">
+    <div class="product-detail" id="product-detail-content"></div>
+</div>
+
+<!-- КОНФИГУРАТОР -->
+<div class="page" id="page-config">
+    <div class="config-page">
+        <div class="config-header">
+            <div class="section-eyebrow" style="margin-bottom: 16px;">Конфигуратор · Соберите свою машину</div>
+            <h1>Собери свой <em>идеальный</em> ПК</h1>
+            <p>Выбирайте комплектующие пошагово — мы проверим совместимость и соберём сборку под ваши задачи. Каждый выбор оживает справа — вы увидите, как ваш ПК собирается прямо на глазах.</p>
+        </div>
+        
+        <div class="config-progress">
+            <div class="config-progress-meta">
+                <span id="config-progress-text">Шаг 1 из 9</span>
+                <span id="config-progress-percent">11%</span>
+            </div>
+            <div class="config-progress-track"><div class="config-progress-fill" id="config-progress-bar"></div></div>
+        </div>
+        
+        <div class="config-grid">
+            <div class="config-left" id="config-sections"></div>
+            
+            <div class="config-right">
+                <!-- ВИЗУАЛИЗАЦИЯ СБОРКИ -->
+                <div class="config-builder">
+                    <div class="config-builder-head">
+                        <div class="config-builder-title">
+                            <div class="section-eyebrow" style="color: var(--accent); margin-bottom: 6px;">Ваша сборка</div>
+                            <h3>Живой 3D-вид</h3>
+                        </div>
+                        <div class="config-builder-actions">
+                            <div class="config-builder-rotation" id="builder-rotate" title="Повернуть">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 4v6h6M23 20v-6h-6"/>
+                                    <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+                                </svg>
+                            </div>
+                            <div class="config-builder-reset" id="builder-reset" title="Сбросить" onclick="resetConfig()">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                                    <path d="M3 3v5h5"/>
+                                </svg>
+                                <span>Сбросить</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="config-stage">
+                        <div class="config-stage-grid"></div>
+                        <div class="config-pc-wrapper" id="pc-wrapper">
+                            <div class="pc-3d-scene">
+                                <div class="pc-particles" id="pc-particles"></div>
+                                <div class="pc-ambient-glow" id="pc-ambient-glow"></div>
+
+                                <div class="pc-3d-float">
+                                    <div class="pc-3d-model" id="pc-3d-model">
+                                        <div class="pc-layer-3d" data-layer="case" style="--lz:-2px">
+                                            <div class="pc-case-frame">
+                                                <div class="pc-case-back"></div>
+                                                <div class="pc-case-front-mesh">
+                                                    <div class="pc-fan-rgb" style="--fy:14%"><div class="fan-ring"></div><div class="fan-hub"></div><div class="fan-blade b1"></div><div class="fan-blade b2"></div><div class="fan-blade b3"></div><div class="fan-blade b4"></div><div class="fan-blade b5"></div><div class="fan-blade b6"></div><div class="fan-blade b7"></div></div>
+                                                    <div class="pc-fan-rgb" style="--fy:40%"><div class="fan-ring"></div><div class="fan-hub"></div><div class="fan-blade b1"></div><div class="fan-blade b2"></div><div class="fan-blade b3"></div><div class="fan-blade b4"></div><div class="fan-blade b5"></div><div class="fan-blade b6"></div><div class="fan-blade b7"></div></div>
+                                                    <div class="pc-fan-rgb" style="--fy:66%"><div class="fan-ring"></div><div class="fan-hub"></div><div class="fan-blade b1"></div><div class="fan-blade b2"></div><div class="fan-blade b3"></div><div class="fan-blade b4"></div><div class="fan-blade b5"></div><div class="fan-blade b6"></div><div class="fan-blade b7"></div></div>
+                                                </div>
+                                                <div class="pc-case-iopanel"></div>
+                                            </div>
+                                            <div class="pc-led-strip"></div>
+                                            <div class="pc-stand"><div class="pc-stand-leg"></div><div class="pc-stand-leg r"></div></div>
+                                        </div>
+
+                                        <div class="pc-layer-3d" data-layer="platform" style="--lz:-4px">
+                                        </div>
+
+                                        <div class="pc-layer-3d" data-layer="mb" style="--lz:-1px">
+                                            <div class="pc-motherboard">
+                                                <div class="pcb-trace-h" style="top:28%"></div>
+                                                <div class="pcb-trace-h" style="top:52%"></div>
+                                                <div class="pcb-trace-h" style="top:76%"></div>
+                                                <div class="pcb-trace-v" style="left:22%"></div>
+                                                <div class="pcb-trace-v" style="left:55%"></div>
+                                                <div class="pcb-trace-v" style="left:82%"></div>
+                                                <div class="pcb-chip" style="top:6%;left:6%"></div>
+                                                <div class="pcb-chip" style="top:6%;right:6%"></div>
+                                                <div class="pcb-chip sm" style="bottom:8%;left:30%"></div>
+                                                <div class="pcb-vrm"></div>
+                                                <div class="pcb-socket"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="pc-layer-3d" data-layer="cpu" style="--lz:3px">
+                                            <div class="pc-cpu">
+                                                <div class="cpu-substrate"></div>
+                                                <div class="cpu-ihs"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="pc-layer-3d" data-layer="cooler" style="--lz:8px">
+                                            <div class="pc-cooler">
+                                                <div class="cooler-tower">
+                                                    <div class="fin"></div><div class="fin"></div><div class="fin"></div><div class="fin"></div><div class="fin"></div><div class="fin"></div><div class="fin"></div><div class="fin"></div>
+                                                </div>
+                                                <div class="cooler-fan"><div class="fan-ring"></div><div class="fan-hub"></div></div>
+                                                <div class="cooler-rgb-top"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="pc-layer-3d" data-layer="ram" style="--lz:1px">
+                                            <div class="pc-ram">
+                                                <div class="ram-stick"><div class="ram-body"></div><div class="ram-rgb"></div></div>
+                                                <div class="ram-stick"><div class="ram-body"></div><div class="ram-rgb"></div></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="pc-layer-3d" data-layer="gpu" style="--lz:5px">
+                                            <div class="pc-gpu">
+                                                <div class="gpu-body">
+                                                    <div class="gpu-backplate"></div>
+                                                    <div class="gpu-shroud"></div>
+                                                </div>
+                                                <div class="gpu-fan"><div class="fan-ring"></div><div class="fan-hub"></div></div>
+                                                <div class="gpu-fan g2"><div class="fan-ring"></div><div class="fan-hub"></div></div>
+                                                <div class="gpu-led"></div>
+                                                <div class="gpu-power"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="pc-layer-3d" data-layer="ssd" style="--lz:0px">
+                                            <div class="pc-ssd"><div class="ssd-body"></div><div class="ssd-chip"></div></div>
+                                        </div>
+
+                                        <div class="pc-layer-3d" data-layer="psu" style="--lz:-2px">
+                                            <div class="pc-psu">
+                                                <div class="psu-body"></div>
+                                                <div class="psu-fan"><div class="fan-ring"></div><div class="fan-hub"></div></div>
+                                                <div class="psu-label"></div>
+                                                <div class="psu-power-led"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="pc-glass-panel" data-layer="case"></div>
+                                    </div>
+                                </div>
+
+                                <div class="pc-hover-zones" id="pc-hover-zones">
+                                    <div class="pc-hover-zone" data-step="case" style="inset:2%"></div>
+                                    <div class="pc-hover-zone" data-step="mb" style="top:8%;left:12%;width:66%;height:60%"></div>
+                                    <div class="pc-hover-zone" data-step="cpu" style="top:20%;left:28%;width:22%;height:15%"></div>
+                                    <div class="pc-hover-zone" data-step="cooler" style="top:10%;left:20%;width:34%;height:32%"></div>
+                                    <div class="pc-hover-zone" data-step="ram" style="top:8%;left:68%;width:10%;height:32%"></div>
+                                    <div class="pc-hover-zone" data-step="gpu" style="top:52%;left:12%;width:60%;height:16%"></div>
+                                    <div class="pc-hover-zone" data-step="ssd" style="top:42%;left:14%;width:16%;height:5%"></div>
+                                    <div class="pc-hover-zone" data-step="psu" style="top:72%;left:12%;width:60%;height:13%"></div>
+                                </div>
+
+                                <div class="pc-reflection" id="pc-reflection"></div>
+                            </div>
+
+                            <div class="pc-tooltip" id="pc-tooltip"></div>
+
+                            <div class="config-stage-empty" id="stage-empty">
+                                <div class="config-stage-empty-icon">◱</div>
+                                <div class="config-stage-empty-text">Начните с выбора корпуса</div>
+                                <div class="config-stage-empty-sub">Компоненты будут появляться здесь по мере выбора</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="config-parts-ticker" id="parts-ticker"></div>
+                </div>
+                
+                <!-- СВОДКА -->
+                <div class="config-summary">
+                    <div class="config-summary-head">
+                        <h3>Итого</h3>
+                        <div class="config-summary-sub">живой расчёт</div>
+                    </div>
+                    <div id="config-summary-list"></div>
+                    <div class="config-total">
+                        <div class="config-total-label">С учётом сборки и теста</div>
+                        <div class="config-total-price" id="config-total">0 ₽</div>
+                        <div class="config-total-sub">Сборка 24–48 ч · тест 48 ч · гарантия 1 год</div>
+                    </div>
+                    <button class="btn config-action-btn" id="config-action-btn" onclick="addConfigToCart()" disabled>Выберите комплектующие</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- КОРЗИНА -->
+<div class="page" id="page-cart">
+    <div class="cart-page" id="cart-content"></div>
+</div>
+
+<!-- О НАС / Доставка / Гарантия -->
+<div class="page" id="page-info">
+    <div class="info-page">
+        <h1>О компании</h1>
+        <p class="lead">Мы собираем компьютеры в Новочеркасске с 2024 года. Не магазин со склада, а небольшая мастерская — каждую машину собирает руками человек, который понимает, что делает.</p>
+        
+        <div class="info-tabs">
+            <button class="info-tab active" data-tab="about" onclick="switchTab('about')">О нас</button>
+            <button class="info-tab" data-tab="delivery" onclick="switchTab('delivery')">Доставка</button>
+            <button class="info-tab" data-tab="warranty" onclick="switchTab('warranty')">Гарантия</button>
+        </div>
+
+        <div class="info-content">
+            <div class="active" id="tab-about">
+                <p>ERMAK начался с одной простой идеи — большинство сборщиков ПК в России либо втюхивают вам железо, которое вам не нужно, либо собирают на отшибись. Мы решили делать иначе.</p>
+                <h2>Что отличает нас</h2>
+                <p>Мы не работаем со складскими остатками. Каждая сборка под заказ — это значит, что мы покупаем актуальные комплектующие под вашу задачу, а не пытаемся продать то, что лежит уже полгода.</p>
+                <p>Перед отправкой каждая машина проходит 48 часов стресс-тестов: AIDA64, OCCT, FurMark, Prime95. Если что-то не нравится в результатах — пересобираем.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-num">340+</div>
+                        <div class="stat-label">собранных ПК</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num">48 ч</div>
+                        <div class="stat-label">тестов перед отправкой</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num">1 год</div>
+                        <div class="stat-label">гарантия на сборку</div>
+                    </div>
+                </div>
+
+                <h2>Наша команда</h2>
+                <p>Нас трое. Один собирает, второй тестирует и настраивает, третий общается с клиентами и занимается логистикой. Маленькая команда — это значит, что мы знаем каждую сборку, которая ушла из мастерской.</p>            </div>
+
+            <div id="tab-delivery">
+                <p>Доставляем по всей России транспортными компаниями (СДЭК, ПЭК, Деловые Линии). По Новочеркасску — собственным курьером.</p>
+                
+                <h3>Сроки</h3>
+                <ul>
+                    <li>По Новочеркасску — день в день при заказе до 14:00</li>
+                    <li>По Ростовской области — 1-2 рабочих дня</li>
+                    <li>По ЦФО — 3-5 рабочих дней</li>
+                    <li>По остальной России — 5-10 рабочих дней</li>
+                </ul>
+
+                <h3>Стоимость</h3>
+                <ul>
+                    <li>До 100 000 ₽ — рассчитывается транспортной компанией</li>
+                    <li>От 100 000 ₽ — бесплатная доставка по РФ</li>
+                    <li>По Новочеркасску — 500 ₽ или бесплатно от 50 000 ₽</li>
+                </ul>
+
+                <h3>Упаковка</h3>
+                <p>Каждый ПК упаковывается в двойную коробку с пенопластовыми вкладышами и воздушно-пузырчатой плёнкой. Видеокарта дополнительно фиксируется специальным держателем, чтобы не повредить слот PCIe в дороге.</p>
+
+                <h3>Деревянная обрешётка</h3>
+                <p>Все ПК отправляются в деревянной обрешётке поверх коробки. Это жёсткий каркас из деревянных реек, который защищает компьютер от ударов, падений и сдавливания на складах и в сортировках ТК. Без обрешётки мы не отправляем ни одну сборку — слишком часто видели, как коробки приходят деформированными после перевозки через пол-России.</p>
+                <p>Обрешётка входит в стоимость доставки. Разбирать её вам не придётся — курьер ТК распакует при выдаче, или мы подскажем, как вскрыть самостоятельно.</p>
+
+                <h3>Самовывоз</h3>
+                <p>Можете забрать сами из нашей мастерской: Новочеркасск, ул. Свободы, 67. Время работы: ежедневно с 10:00 до 21:00. Тестируем готовый ПК прямо при вас.</p>
+            </div>
+
+            <div id="tab-warranty">
+                <p>Мы даём 1 год гарантии на сборку и совместимость комплектующих. Это сверх гарантии производителя на каждую конкретную деталь.</p>
+
+                <h3>Что покрывается</h3>
+                <ul>
+                    <li>Несовместимость комплектующих между собой</li>
+                    <li>Заводские дефекты любой детали (по гарантии производителя)</li>
+                    <li>Неправильная установка кулера, термопасты, кабелей</li>
+                    <li>Любая поломка по нашей вине в первые 30 дней</li>
+                    <li>Бесплатная диагностика любой проблемы в течение 1 года</li>
+                </ul>
+
+                <h3>Что не покрывается</h3>
+                <ul>
+                    <li>Механические повреждения от падений и ударов</li>
+                    <li>Залив жидкостью</li>
+                    <li>Самостоятельный разгон с превышением безопасных напряжений</li>
+                    <li>Замена комплектующих не нами с нарушением совместимости</li>
+                </ul>
+
+                <h3>Как воспользоваться</h3>
+                <p>Напишите нам в Telegram или позвоните. Опишите проблему. Мы либо сразу подскажем как решить (часто это настройка), либо организуем диагностику. Если поломка по нашей части — забираем ПК за свой счёт, чиним, возвращаем.</p>
+
+                <h3>Сервис после гарантии</h3>
+                <p>После 1 года гарантия заканчивается, но мы не бросаем своих клиентов. Платная диагностика и ремонт по сильно сниженным ценам — потому что мы помним каждую сборку и знаем её историю.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- КОНТАКТЫ -->
+<div class="page" id="page-contacts">
+    <div class="contacts-page">
+        <h1>Свяжитесь<br>с нами.</h1>
+        <p>Можем помочь подобрать конфигурацию, ответить на вопросы по сборке или просто поболтать про комплектующие. Пишите как удобно.</p>
+        <div class="contacts-layout">
+            <div>
+                <div class="contact-block">
+                    <div class="contact-label">Telegram</div>
+                    <div class="contact-value"><a href="https://t.me/ermakpc" target="_blank">@ermakpc</a></div>
+                    <div class="contact-note">Отвечаем в течение часа · 10:00–22:00 МСК</div>
+                </div>
+                <div class="contact-block">
+                    <div class="contact-label">Телефон</div>
+                    <div class="contact-value"><a href="tel:+79951005050">+7 (995) 100-50-50</a></div>
+                    <div class="contact-note">Ежедневно с 10:00 до 21:00</div>
+                </div>
+                <div class="contact-block">
+                    <div class="contact-label">Почта</div>
+                    <div class="contact-value"><a href="mailto:hi@ermakpc.ru">hi@ermakpc.ru</a></div>
+                    <div class="contact-note">Для деловых вопросов и B2B</div>
+                </div>
+                <div class="contact-block">
+                    <div class="contact-label">Мастерская</div>
+                    <div class="contact-value">Новочеркасск,<br>ул. Свободы, 67</div>
+                    <div class="contact-note">Ежедневно 10:00–21:00 · самовывоз</div>
+                </div>
+            </div>
+            <form class="contact-form" id="contactForm">
+                <h2>Написать нам</h2>
+                <div class="form-group">
+                    <label for="cname">Имя</label>
+                    <input type="text" id="cname" placeholder="Как к вам обращаться" required>
+                </div>
+                <div class="form-group">
+                    <label for="cemail">Email или Telegram</label>
+                    <input type="text" id="cemail" placeholder="email@example.com или @username" required>
+                </div>
+                <div class="form-group">
+                    <label for="cmsg">Сообщение</label>
+                    <textarea id="cmsg" placeholder="Опишите задачу: для чего ПК, бюджет, особые пожелания..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Отправить</button>
+                <div class="form-status" id="formStatus"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-top">
+            <div>
+                <div class="footer-brand">ERMAK<span class="logo-dot" style="background:var(--accent);display:inline-block;width:10px;height:10px;border-radius:50%;margin-left:4px;transform:translateY(-4px);"></span>pc</div>
+                <p class="footer-brand-sub">Собираем компьютеры под задачу с 2024 года. Без склада, без переплат, с тестами и гарантией.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Магазин</h4>
+                <ul>
+                    <li><a onclick="nav('catalog')">Каталог</a></li>
+                    <li><a onclick="nav('config')">Конфигуратор</a></li>
+                    <li><a onclick="nav('cart')">Корзина</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Компания</h4>
+                <ul>
+                    <li><a onclick="nav('info'); switchTab('about')">О нас</a></li>
+                    <li><a onclick="nav('info'); switchTab('delivery')">Доставка</a></li>
+                    <li><a onclick="nav('info'); switchTab('warranty')">Гарантия</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Контакты</h4>
+                <ul>
+                    <li><a href="https://t.me/ermakpc" target="_blank">Telegram</a></li>
+                    <li><a href="tel:+79951005050">+7 (995) 100-50-50</a></li>
+                    <li><a href="mailto:hi@ermakpc.ru">hi@ermakpc.ru</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 ERMAK · pc</span>
+            <span>Made with care in Новочеркасск</span>
+        </div>
+    </div>
+</footer>
+
+<!-- MODAL: CHECKOUT -->
+<div class="modal-overlay" id="checkout-modal" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal()" aria-label="Закрыть">×</button>
+        
+        <form id="checkout-form" onsubmit="submitOrder(event)">
+            <div class="modal-header">
+                <div class="section-eyebrow" style="margin-bottom: 12px;">Оформление заказа</div>
+                <h2>Последний шаг.</h2>
+                <p>Заполните данные — менеджер свяжется в течение часа, подтвердит заказ и уточнит детали доставки.</p>
+            </div>
+            
+            <div class="modal-summary">
+                <span><span id="modal-items-count">0</span> товаров в заказе</span>
+                <span class="modal-total-val" id="modal-total">0 ₽</span>
+            </div>
+            
+            <div class="modal-section">
+                <div class="modal-section-title">Контактные данные</div>
+                <div class="form-group">
+                    <label for="o-name">ФИО *</label>
+                    <input type="text" id="o-name" name="name" placeholder="Иванов Иван Иванович" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="o-phone">Телефон *</label>
+                        <input type="tel" id="o-phone" name="phone" placeholder="+7 (999) 123-45-67" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="o-email">Email *</label>
+                        <input type="email" id="o-email" name="email" placeholder="example@mail.ru" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="o-telegram">Telegram (необязательно)</label>
+                    <input type="text" id="o-telegram" name="telegram" placeholder="@username — так быстрее свяжемся">
+                </div>
+            </div>
+            
+            <div class="modal-section">
+                <div class="modal-section-title">Доставка</div>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="delivery" value="courier_nov" checked>
+                        <div class="radio-content">
+                            <div class="radio-title">Курьер по Новочеркасску</div>
+                            <div class="radio-desc">День в день при заказе до 14:00 · 500 ₽ (бесплатно от 50 000 ₽)</div>
+                        </div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="delivery" value="tk">
+                        <div class="radio-content">
+                            <div class="radio-title">Транспортная компания по РФ</div>
+                            <div class="radio-desc">СДЭК / ПЭК / Деловые Линии · 3–10 рабочих дней · бесплатно от 100 000 ₽</div>
+                        </div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="delivery" value="pickup">
+                        <div class="radio-content">
+                            <div class="radio-title">Самовывоз из мастерской</div>
+                            <div class="radio-desc">Новочеркасск, ул. Свободы, 67 · бесплатно · покажем тесты вживую</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="modal-section" id="address-section">
+                <div class="modal-section-title">Адрес доставки</div>
+                <div class="form-group">
+                    <label for="o-city">Город</label>
+                    <input type="text" id="o-city" name="city" placeholder="Москва, Новочеркасск, Ростов-на-Дону...">
+                </div>
+                <div class="form-group">
+                    <label for="o-addr">Адрес</label>
+                    <input type="text" id="o-addr" name="address" placeholder="Улица, дом, квартира / пункт выдачи ТК">
+                </div>
+                <div class="form-group">
+                    <label for="o-comment">Комментарий (необязательно)</label>
+                    <textarea id="o-comment" name="comment" rows="3" placeholder="Предпочтения по времени доставки, особые пожелания, вопросы по сборке..."></textarea>
+                </div>
+            </div>
+            
+            <div class="modal-info-box">
+                <div class="modal-info-icon">📦</div>
+                <div>
+                    <strong>Отправляем в деревянной обрешётке</strong>
+                    <p>Поверх двойной коробки — жёсткий деревянный каркас, чтобы ПК доехал целым даже при грубом обращении на сортировках ТК. Стоимость обрешётки уже включена в доставку.</p>
+                </div>
+            </div>
+            
+            <div class="modal-terms">
+                Нажимая «Оформить заказ», вы соглашаетесь с условиями обработки персональных данных. Мы используем их только чтобы связаться с вами по этому заказу.
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-submit-order">Оформить заказ</button>
+        </form>
+        
+        <div id="checkout-success" style="display:none;">
+            <div class="success-icon">✓</div>
+            <h2>Заказ оформлен!</h2>
+            <div class="success-order">Номер заказа: <strong id="order-num">—</strong></div>
+            <p>Менеджер свяжется с вами в течение часа в рабочее время (10:00–21:00 МСК). Подтвердит конфигурацию, уточнит адрес доставки и согласует сроки сборки.</p>
+            <div class="success-steps">
+                <div class="success-step">
+                    <div class="success-step-num">1</div>
+                    <div>
+                        <strong>Звонок от менеджера</strong>
+                        <div>В течение часа. Подтвердит заказ.</div>
+                    </div>
+                </div>
+                <div class="success-step">
+                    <div class="success-step-num">2</div>
+                    <div>
+                         <strong>Сборка 24–48 ч + тест 48 ч</strong>
+                        <div>Следующие 3–5 дней после подтверждения.</div>
+                    </div>
+                </div>
+                <div class="success-step">
+                    <div class="success-step-num">3</div>
+                    <div>
+                        <strong>Упаковка и отправка</strong>
+                        <div>В обрешётке, с фото сборки и результатами тестов.</div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="finishCheckout()" style="width:100%;justify-content:center;margin-top:24px;">Понятно, спасибо</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast">Добавлено в корзину</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/configurator.js"></script>
+
+</body>
+</html>
